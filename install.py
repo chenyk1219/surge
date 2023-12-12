@@ -8,8 +8,8 @@ import os
 def get_china_domain():
     china_domain_list_url = 'https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf'
 
-    china_domain_filename = os.path.join('Ruleset', 'ChinaDomain.list')
-    always_real_ip_filename = os.path.join('Ruleset', 'RealIP.list')
+    china_domain_filename = os.path.join('dist', 'ChinaDomain.list')
+    always_real_ip_filename = os.path.join('dist', 'RealIP.list')
     # china_domain_filename = 'ChinaDomain.list'
 
     china_domain_list = requests.request('GET', china_domain_list_url).text.split('\n')
@@ -33,7 +33,7 @@ def get_china_domain():
 # 获取中国IP
 def get_china_ip():
     china_ip_list_url = 'https://raw.githubusercontent.com/Hackl0us/GeoIP2-CN/release/CN-ip-cidr.txt'
-    china_ip_list_filename = os.path.join('Ruleset', 'ChinaIP.list')
+    china_ip_list_filename = os.path.join('dist', 'ChinaIP.list')
     # china_ip_list_filename = 'ChinaIP.list'
 
     china_ip_list = requests.request('GET', china_ip_list_url).text.split('\n')
