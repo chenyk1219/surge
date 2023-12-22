@@ -2,6 +2,8 @@
 # 公司内网地址、内网域名
 
 # 本地/局域网地址
+DOMAIN-SUFFIX,izkml.com
+DOMAIN-SUFFIX,zkmlops.com
 IP-CIDR,172.16.0.0/16,no-resolve
 IP-CIDR,172.17.0.0/16,no-resolve
 IP-CIDR,172.18.0.0/16,no-resolve
