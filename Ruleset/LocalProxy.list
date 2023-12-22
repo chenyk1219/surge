@@ -52,11 +52,12 @@ show-error-page-for-reject = true
 
 
 [Proxy]
+Direct = direct
 🚇 VPN = direct, interface=utun10, allow-other-interface=true, test-url=http://git.izkml.com:10008/users/sign_in
 🏠 本地 = direct, interface=en0, allow-other-interface=true, test-url=http://git.izkml.com:10008/users/sign_in
+🇭🇰 Hong Kong 01= ss, xxxxxxxxx, xxxxxx, xxxxxxx, xxxxxx
 
 [Proxy Group]
-Direct = direct
 🌐 局域网 = url-test, 🚇 VPN, 🏠 本地
 
 [Rule]
