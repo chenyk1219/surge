@@ -1,0 +1,4 @@
+[Proxy]
+DIRECT = direct
+🚇 VPN = direct, interface=utun10, allow-other-interface=true, test-url=http://git.izkml.com:10008/users/sign_in
+🏠 本地 = direct, interface=en0, allow-other-interface=true, test-url=http://git.izkml.com:10008/users/sign_in
