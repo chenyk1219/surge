@@ -3,6 +3,7 @@
 
 # 本地/局域网地址
 IP-CIDR,172.16.0.0/16,no-resolve
+IP-CIDR,172.17.0.0/16,no-resolve
 IP-CIDR,172.18.0.0/16,no-resolve
 IP-CIDR,172.19.0.0/16,no-resolve
 IP-CIDR,172.20.0.0/16,no-resolve
