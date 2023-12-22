@@ -56,7 +56,7 @@ Direct = direct
 🚇 VPN = direct, interface=utun10, allow-other-interface=true, test-url=http://git.izkml.com:10008/users/sign_in
 🏠 本地 = direct, interface=en0, allow-other-interface=true, test-url=http://git.izkml.com:10008/users/sign_in
 🇭🇰 Hong Kong 01= ss, xxxxxxxxx, xxxxxx, xxxxxxx, xxxxxx
-🇭🇰 Hong Kong 02= direct, interface=utun10, allow-other-interface=true
+🇭🇰 Hong Kong 02= trojan, interface=utun10, allow-other-interface=true
 
 [Proxy Group]
 🌐 局域网 = url-test, 🚇 VPN, 🏠 本地
