@@ -35,6 +35,7 @@ DOMAIN-SUFFIX,icar56.com
 DOMAIN-SUFFIX,icar56.cn
 DOMAIN-SUFFIX,meiluo56.com
 DOMAIN-SUFFIX,meiluo56.cn
+IP-CIDR,10.0.0.0/8,no-resolve
 IP-CIDR,172.16.0.0/16,no-resolve
 IP-CIDR,172.17.0.0/16,no-resolve
 IP-CIDR,172.18.0.0/16,no-resolve
