@@ -6,7 +6,8 @@ subconverter
 # local env files
 .env.local
 .env.*.local
-cache
+cache\
+test
 # Log files
 npm-debug.log*
 yarn-debug.log*
