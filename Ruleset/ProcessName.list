@@ -1,5 +1,0 @@
-# 管理一些进程不走代理
-PROCESS-NAME,/Applications/企业微信.app/Contents/MacOS/企业微信
-PROCESS-NAME,/Users/ichen/Library/Application Support/CleanMyMac-X/CleanMyMac X Updater.app/Contents/MacOS/CleanMyMac X Updater
-PROCESS-NAME,/Users/ichen/.pyenv/versions/2.7.18/bin/python2.7
-PROCESS-NAME,/Applications/Alfred 5.app/Contents/Preferences/Alfred Preferences.app/Contents/MacOS/Alfred Preferences
