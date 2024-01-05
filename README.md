@@ -1,5 +1,7 @@
 ## Surge 最新免转换懒人配置
 
+最新使用说明文档：[https://www.inextops.com/tools/sub/](https://www.inextops.com/tools/sub/)
+
 ### 1. 安装
 
 从URL下载配置
