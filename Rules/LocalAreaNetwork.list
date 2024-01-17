@@ -1,0 +1,16 @@
+# 本地/局域网地址
+# 参考：https://en.wikipedia.org/wiki/Reserved_IP_addresses
+
+# 本地/局域网地址
+IP-CIDR,172.16.0.0/16,no-resolve
+IP-CIDR,172.17.0.0/16,no-resolve
+IP-CIDR,172.18.0.0/16,no-resolve
+IP-CIDR,172.19.0.0/16,no-resolve
+IP-CIDR,172.20.0.0/16,no-resolve
+IP-CIDR,172.21.0.0/16,no-resolve
+IP-CIDR,172.22.0.0/16,no-resolve
+
+
+# Router managed 路由器管理域名
+DOMAIN-SUFFIX,izkml.com
+DOMAIN-SUFFIX,zkmlops.com
