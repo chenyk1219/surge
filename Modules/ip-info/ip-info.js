@@ -436,7 +436,7 @@ function getRealNetworkInfo() {
         if (Number(response.status) > 300) {
             throw new Error(`Request error with http status code: ${response.status}\n${response.data}`);
         }
-        const res = JSON.parse(response.text.match(/callback\((.*)\)/)[1]);
+        const res = JSON.parse(response.text.split('(')[1].split(')')[0]);
         const netName = getSSID() ?? getCellularInfo()
         info2.push(`${netName} 公网IP：${res.ip}`);
         info2.push(`${netName} ISP：${res.isp} - ${res.net}`);
