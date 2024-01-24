@@ -80,7 +80,7 @@ function getFlagEmoji(countryCode) {
         countryCode = 'CN'
     }
 
-    const codePoints: Number[] = countryCode
+    const codePoints = countryCode
         .toUpperCase()
         .split('')
         .map((char) => 127397 + char.charCodeAt());
