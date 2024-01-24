@@ -10,7 +10,7 @@ function getIpInfo() {
         if (v6?.primaryRouter && getSSID()) info.push(`IPv6地址：已分配`);
     }
     // info = info.join("\n");
-    return info
+    return info.join("\n");
 }
 
 function getFlagEmoji(countryCode) {
