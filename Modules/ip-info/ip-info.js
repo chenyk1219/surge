@@ -1,90 +1,21 @@
-/*
- * Surge 网络详情
- * 由@Nebulosa-Cat编写
- * 由@Rabbit-Spec翻译
- * 更新日期：2023.04.22
- * 版本：3.5
- */
-
-/**
- * 网络请求封装为 Promise
- * Usage: httpMethod.get(option).then(response => { logger.log(data) }).catch(error => { logger.log(error) })
- * Usage: httpMethod.post(option).then(response => { logger.log(data) }).catch(error => { logger.log(error) })
- * response: { status, headers, data }
- */
-class httpMethod {
-    /**
-     * 回调函数
-     * @param {*} resolve
-     * @param {*} reject
-     * @param {*} error
-     * @param {*} response
-     * @param {*} data
-     */
-    static _httpRequestCallback(resolve, reject, error, response, data) {
-        if (error) {
-            reject(error);
-        } else {
-            resolve(Object.assign(response, {data}));
-        }
+function getIpInfo() {
+    const {v4, v6} = $network;
+    let info = [];
+    if (!v4 && !v6) {
+        info = ['网路可能中断', '请手动刷新以重新获取 IP'];
+    } else {
+        if (v4?.primaryAddress) info.push(`设备IP：${v4?.primaryAddress}`);
+        if (v6?.primaryAddress) info.push(`IPv6地址：已分配`);
+        if (v4?.primaryRouter && getSSID()) info.push(`路由器IP：${v4?.primaryRouter}`);
+        if (v6?.primaryRouter && getSSID()) info.push(`IPv6地址：已分配`);
     }
-
-    /**
-     * HTTP GET
-     * @param {Object} option 选项
-     * @returns
-     */
-    static get(option = {}) {
-        return new Promise((resolve, reject) => {
-            $httpClient.get(option, (error, response, data) => {
-                this._httpRequestCallback(resolve, reject, error, response, data);
-            });
-        });
-    }
-
-    /**
-     * HTTP POST
-     * @param {Object} option 选项
-     * @returns
-     */
-    static post(option = {}) {
-        return new Promise((resolve, reject) => {
-            $httpClient.post(option, (error, response, data) => {
-                this._httpRequestCallback(resolve, reject, error, response, data);
-            });
-        });
-    }
-}
-
-class loggerUtil {
-    constructor() {
-        this.id = randomString();
-    }
-
-    log(message) {
-        message = `[${this.id}] [ LOG ] ${message}`;
-        console.log(message);
-    }
-
-    error(message) {
-        message = `[${this.id}] [ERROR] ${message}`;
-        console.log(message);
-    }
-}
-
-var logger = new loggerUtil();
-
-function randomString(e = 6) {
-    var t = "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678",
-        a = t.length,
-        n = "";
-    for (i = 0; i < e; i++) n += t.charAt(Math.floor(Math.random() * a));
-    return n;
+    // info = info.join("\n");
+    return info
 }
 
 function getFlagEmoji(countryCode) {
 
-    if (countryCode.toUpperCase() == 'TW') {
+    if (countryCode.toUpperCase() === 'TW') {
         countryCode = 'CN'
     }
 
@@ -378,7 +309,7 @@ function loadCarrierNames() {
     };
 }
 
-//获取手机运营商信息(通过内置的 API 调用设备信息)
+
 function getCellularInfo() {
     const radioGeneration = {
         'GPRS': '2.5G',
@@ -414,116 +345,55 @@ function getSSID() {
     return $network.wifi?.ssid;
 }
 
-function getIP() {
-    const {v4, v6} = $network;
-    let info = [];
-    if (!v4 && !v6) {
-        info = ['网路可能中断', '请手动刷新以重新获取 IP'];
-    } else {
-        if (v4?.primaryAddress) info.push(`设备IP：${v4?.primaryAddress}`);
-        if (v6?.primaryAddress) info.push(`IPv6地址：已分配`);
-        if (v4?.primaryRouter && getSSID()) info.push(`路由器IP：${v4?.primaryRouter}`);
-        if (v6?.primaryRouter && getSSID()) info.push(`IPv6地址：已分配`);
+
+(async () => {
+    let panel_msg = {
+        title: '',
+        content: '',
+        icon: getSSID() ? 'wifi' : 'simcard',
+        'icon-color': getSSID() ? '#5A9AF9' : '#8AB8DD',
     }
-    info = info.join("\n");
-    return info + "\n";
-}
-
-
-function getRealNetworkInfo() {
-    let info2 = [];
-    httpMethod.get('https://ip.useragentinfo.com/json').then(response => {
-        if (Number(response.status) > 300) {
-            throw new Error(`Request error with http status code: ${response.status}\n${response.data}`);
-        }
-        const res = JSON.parse(response.data);
-        const netName = getSSID() ?? getCellularInfo()
-        info2.push(`${netName} 公网IP：${res.ip}`);
-        info2.push(`${netName} ISP：${res.isp} - ${res.net}`);
-        info2.push(`${netName} 位置：${getFlagEmoji(res.short_name)} | ${res.country} - ${res.province} - ${res.city}`);
-    }).catch(error => {
-        // 网络切换
-        info2.push(`${netName} 公网IP获取失败：${error}`);
-    });
-    info2 = info2.join("\n");
-    return info2 + "\n";
-}
-
-/**
- * 获取 IP 信息
- * @param {*} retryTimes // 重试次数
- * @param {*} retryInterval // 重试间隔 ms
- */
-
-function getNetworkInfo(retryTimes = 5, retryInterval = 1000) {
-    // 发送网络请求
-    httpMethod.get('http://ip-api.com/json').then(response => {
-        if (Number(response.status) > 300) {
-            throw new Error(`Request error with http status code: ${response.status}\n${response.data}`);
-        }
-        const info = JSON.parse(response.data);
-        $done({
-            title: getSSID() ?? getCellularInfo(),
-            content:
-                getIP() +
-                getRealNetworkInfo() +
-                `节点IP：${info.query}\n` +
-                `节点ISP：${info.isp}\n` +
-                `节点位置：${getFlagEmoji(info.countryCode)} | ${info.country} - ${info.city}`,
-            icon: getSSID() ? 'wifi' : 'simcard',
-            'icon-color': getSSID() ? '#5A9AF9' : '#8AB8DD',
-        });
-    }).catch(error => {
-        // 网络切换
-        if (String(error).startsWith("Network changed")) {
-            if (getSSID()) {
-                $network.wifi = undefined;
-                $network.v4 = undefined;
-                $network.v6 = undefined;
+    let content = []
+    let title = getSSID() ?? getCellularInfo()
+    let getIpInfoPromise = new Promise((resolve, reject) => {
+        $httpClient.get('http://ip-api.com/json', function (error, response, data) {
+            if (error) {
+                console.log(error);
+                reject(error);
+            } else {
+                resolve(JSON.parse(data));
             }
-        }
-        // 判断是否还有重试机会
-        if (retryTimes > 0) {
-            logger.error(error);
-            logger.log(`Retry after ${retryInterval}ms`);
-            // retryInterval 时间后再次执行该函数
-            setTimeout(() => getNetworkInfo(--retryTimes, retryInterval), retryInterval);
-        } else {
-            // 打印日志
-            logger.error(error);
-            $done({
-                title: '发生错误',
-                content: '无法获取当前网络信息\n请检查网络状态后重试',
-                icon: 'wifi.exclamationmark',
-                'icon-color': '#CB1B45',
-            });
-        }
-    });
-}
-
-/**
- * 主要逻辑，程序入口
- */
-(() => {
-    const retryTimes = 5;
-    const retryInterval = 1000;
-    // Surge 脚本超时时间设置为 30s
-    // 提前 500ms 手动结束进程
-    const surgeMaxTimeout = 29500;
-    // 脚本超时时间
-    // retryTimes * 5000 为每次网络请求超时时间（Surge 网络请求超时为 5s）
-    const scriptTimeout = retryTimes * 5000 + retryTimes * retryInterval;
-    setTimeout(() => {
-        logger.log("Script timeout");
-        $done({
-            title: "请求超时",
-            content: "连接请求超时\n请检查网络状态后重试",
-            icon: 'wifi.exclamationmark',
-            'icon-color': '#CB1B45',
         });
-    }, scriptTimeout > surgeMaxTimeout ? surgeMaxTimeout : scriptTimeout);
+    });
 
-    // 获取网络信息
-    logger.log("Script start");
-    getNetworkInfo(retryTimes, retryInterval);
-})();
+    let getLocalInfoPromise = new Promise((resolve, reject) => {
+        $httpClient.get('https://ip.useragentinfo.com/json', function (error, response, data) {
+            if (error) {
+                console.log(error);
+                reject(error);
+            } else {
+                resolve(JSON.parse(data));
+            }
+        });
+    });
+
+    await getLocalInfoPromise.then(info => {
+        content.push(`${title} 公网IP：${info.ip}`);
+        content.push(`${title} ISP：${info.isp} - ${info.net}`);
+        content.push(`${title} 位置：${getFlagEmoji(info.short_name)} | ${info.country} - ${info.province} - ${info.city}`);
+    }).catch(error => {
+        content.push(`本机IP：获取失败`)
+    })
+
+    await getIpInfoPromise.then(info => {
+        content.push(`节点IP：${info.query}`)
+        content.push(`节点ISP：${info.isp}`)
+        content.push(`节点位置：${getFlagEmoji(info.countryCode)} | ${info.country} - ${info.city}`)
+    }).catch(error => {
+        content.push(`节点IP：获取失败`)
+    })
+
+    panel_msg.title = title
+    panel_msg.content = getIpInfo() + content.join("\n")
+    $done(panel_msg)
+})()
