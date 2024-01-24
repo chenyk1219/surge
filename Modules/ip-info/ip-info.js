@@ -432,11 +432,11 @@ function getIP() {
 
 function getRealNetworkInfo() {
     let info2 = [];
-    httpMethod.get('https://ip.useragentinfo.com/jsonp?callback=callback').then(response => {
+    httpMethod.get('https://ip.useragentinfo.com/json').then(response => {
         if (Number(response.status) > 300) {
             throw new Error(`Request error with http status code: ${response.status}\n${response.data}`);
         }
-        const res = JSON.parse(response.data.split('(')[1].split(')')[0]);
+        const res = JSON.parse(response.data);
         const netName = getSSID() ?? getCellularInfo()
         info2.push(`${netName} 公网IP：${res.ip}`);
         info2.push(`${netName} ISP：${res.isp} - ${res.net}`);
