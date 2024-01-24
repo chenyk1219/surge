@@ -1,3 +1,11 @@
+/*
+ * Surge 网络详情
+ * 由@Nebulosa-Cat编写
+ * 由@Rabbit-Spec翻译
+ * 更新日期：2023.04.22
+ * 版本：3.5
+ */
+
 /**
  * 网络请求封装为 Promise
  * Usage: httpMethod.get(option).then(response => { logger.log(data) }).catch(error => { logger.log(error) })
@@ -76,7 +84,7 @@ function randomString(e = 6) {
 
 function getFlagEmoji(countryCode) {
 
-    if (countryCode.toUpperCase() === 'TW') {
+    if (countryCode.toUpperCase() == 'TW') {
         countryCode = 'CN'
     }
 
@@ -426,46 +434,26 @@ function getIP() {
  * @param {*} retryTimes // 重试次数
  * @param {*} retryInterval // 重试间隔 ms
  */
-function getRealNetworkInfo(retryTimes = 5, retryInterval = 1000) {
-    let info = [];
+
+function getRealNetworkInfo() {
+    let info2 = [];
     httpMethod.get('https://ip.useragentinfo.com/jsonp?callback=JSON.parse').then(response => {
         if (Number(response.status) > 300) {
             throw new Error(`Request error with http status code: ${response.status}\n${response.data}`);
         }
         const res = response.data;
         const netName = getSSID() ?? getCellularInfo()
-        info.push(`${netName} 公网IP：${res.ip}`);
-        info.push(`${netName} ISP：${res.isp} - ${res.net}`);
-        info.push(`${netName} 位置：${getFlagEmoji(res.short_name)} | ${res.country} - ${res.province} - ${res.city}`);
-        info = info.join("\n");
-        return info + "\n";
+        info2.push(`${netName} 公网IP：${res.ip}`);
+        info2.push(`${netName} ISP：${res.isp} - ${res.net}`);
+        info2.push(`${netName} 位置：${getFlagEmoji(res.short_name)} | ${res.country} - ${res.province} - ${res.city}`);
     }).catch(error => {
         // 网络切换
-        if (String(error).startsWith("Network changed")) {
-            if (getSSID()) {
-                $network.wifi = undefined;
-                $network.v4 = undefined;
-                $network.v6 = undefined;
-            }
-        }
-        // 判断是否还有重试机会
-        if (retryTimes > 0) {
-            logger.error(error);
-            logger.log(`Retry after ${retryInterval}ms`);
-            // retryInterval 时间后再次执行该函数
-            setTimeout(() => getNetworkInfo(--retryTimes, retryInterval), retryInterval);
-        } else {
-            // 打印日志
-            logger.error(error);
-            $done({
-                title: '发生错误',
-                content: '无法获取当前网络信息\n请检查网络状态后重试',
-                icon: 'wifi.exclamationmark',
-                'icon-color': '#CB1B45',
-            });
-        }
+        info2.push(`${netName} 公网IP获取失败：${error}`);
     });
+    info2 = info2.join("\n");
+    return info2 + "\n";
 }
+
 
 function getNetworkInfo(retryTimes = 5, retryInterval = 1000) {
     // 发送网络请求
