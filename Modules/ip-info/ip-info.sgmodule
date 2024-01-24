@@ -1,4 +1,4 @@
-#!name=显示手机内网IP、手机公网IP、节点IP信息
+#!name=NetInfoPanel
 #!desc=详细的显示你当前的网络信息
 #!system=ios
 # @chenyk1219
