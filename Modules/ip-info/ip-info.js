@@ -429,19 +429,14 @@ function getIP() {
     return info + "\n";
 }
 
-/**
- * 获取 IP 信息
- * @param {*} retryTimes // 重试次数
- * @param {*} retryInterval // 重试间隔 ms
- */
 
 function getRealNetworkInfo() {
     let info2 = [];
-    httpMethod.get('https://ip.useragentinfo.com/jsonp?callback=JSON.parse').then(response => {
+    httpMethod.get('https://ip.useragentinfo.com/jsonp?callback=callback').then(response => {
         if (Number(response.status) > 300) {
             throw new Error(`Request error with http status code: ${response.status}\n${response.data}`);
         }
-        const res = response.data;
+        const res = JSON.parse(response.text.match(/callback\((.*)\)/)[1]);
         const netName = getSSID() ?? getCellularInfo()
         info2.push(`${netName} 公网IP：${res.ip}`);
         info2.push(`${netName} ISP：${res.isp} - ${res.net}`);
@@ -454,6 +449,11 @@ function getRealNetworkInfo() {
     return info2 + "\n";
 }
 
+/**
+ * 获取 IP 信息
+ * @param {*} retryTimes // 重试次数
+ * @param {*} retryInterval // 重试间隔 ms
+ */
 
 function getNetworkInfo(retryTimes = 5, retryInterval = 1000) {
     // 发送网络请求
