@@ -389,6 +389,17 @@ function getIcon() {
         });
     });
 
+    let getPanelIcon = new Promise((resolve, reject) => {
+        $httpClient.get(getIcon(), function (error, response, data) {
+            if (error) {
+                console.log(error);
+                reject(error);
+            } else {
+                resolve(data);
+            }
+        });
+    });
+
     await getLocalInfoPromise.then(info => {
         content.push(`${title} 公网IP：${info.ip}`);
         content.push(`${title} ISP：${info.isp} - ${info.net}`);
@@ -405,7 +416,12 @@ function getIcon() {
         content.push(`节点IP：获取失败`)
     })
 
-    // panel_msg.icon = getIcon()
+    await getPanelIcon.then(icon => {
+        panel_msg.icon = icon
+    }).catch(error => {
+        console.log(error)
+    })
+
     panel_msg.title = title
     panel_msg.content = getIpInfo() + content.join("\n")
     $done(panel_msg)
