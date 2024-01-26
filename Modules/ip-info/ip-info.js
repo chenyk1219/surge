@@ -405,7 +405,7 @@ function getIcon() {
         content.push(`节点IP：获取失败`)
     })
 
-    panel_msg.icon = getIcon()
+    // panel_msg.icon = getIcon()
     panel_msg.title = title
     panel_msg.content = getIpInfo() + content.join("\n")
     $done(panel_msg)
