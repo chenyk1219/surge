@@ -416,11 +416,11 @@ function getIcon() {
         content.push(`节点IP：获取失败`)
     })
 
-    await getPanelIcon.then(icon => {
-        panel_msg.icon = icon
-    }).catch(error => {
-        console.log(error)
-    })
+    // await getPanelIcon.then(icon => {
+    //     panel_msg.icon = icon
+    // }).catch(error => {
+    //     console.log(error)
+    // })
 
     panel_msg.title = title
     panel_msg.content = getIpInfo() + content.join("\n")
