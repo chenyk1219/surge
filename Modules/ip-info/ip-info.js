@@ -347,13 +347,13 @@ function getSSID() {
 
 function getIcon() {
     if (getSSID()) {
-        return "https://raw.githubusercontent.com/chenyk1219/surge/main/static/wifi.png"
+        return "https://raw.githubusercontent.com/chenyk1219/surge/main/icon/wifi.svg"
     } else {
         name = getCellularInfo()
         if (name.indexOf('5G') !== -1) {
-            return "https://raw.githubusercontent.com/chenyk1219/surge/main/static/5g.png"
+            return "https://raw.githubusercontent.com/chenyk1219/surge/main/icon/5g.svg"
         } else {
-            return "https://raw.githubusercontent.com/chenyk1219/surge/main/static/4g.png"
+            return "https://raw.githubusercontent.com/chenyk1219/surge/main/icon/4g.svg"
         }
     }
 }
