@@ -2,23 +2,28 @@
 
 最新使用说明文档：[https://www.inextops.com/tools/sub/](https://www.inextops.com/tools/sub/)
 
-### 1. 安装
+## 更新
 
-从URL下载配置
+- 2024-01-26 更新
 
-![](./static/01.PNG)
+由于新加坡的媒体解锁的内容比较多，所以分离出一版将媒体指向新加坡节点
 
-- iPhone/iPad
+```shell
+https://raw.githubusercontent.com/chenyk1219/surge/master/MacAutoUpdateMedia.conf
+```
 
-配置文件地址：https://raw.githubusercontent.com/chenyk1219/surge/master/iPhone.conf
+```shell
+https://raw.githubusercontent.com/chenyk1219/surge/master/iPhoneAutoUpdateMedia.conf 
+```
 
-- Mac
+```shell
+https://raw.githubusercontent.com/chenyk1219/surge/master/CHENYK_SURGE_MEDIA.ini
+```
 
-配置文件地址：https://raw.githubusercontent.com/chenyk1219/surge/master/Mac.conf
+- 2024-01-25 更新
 
+新增：ozan、iyzico土耳其支付域名列表，建议指向土耳其节点，如果有土耳其节点的话
 
-### 2. 使用
-
-先接将机场自己的链接导入到到Surge里，然后切回iPhone.conf或者Mac.conf，选择`**在文本模式中编辑**`，将`**[proxy]**`里面引用的文件名替换成刚才导入的机场文件名就可以直接使用了
-
-![](./static/01.PNG)
+```shell
+https://raw.githubusercontent.com/chenyk1219/surge/main/TRYpay.list
+```
