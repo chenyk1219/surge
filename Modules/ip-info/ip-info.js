@@ -1,16 +1,17 @@
 function getIpInfo() {
+    let title = getSSID() ?? getCellularInfo()
     const {v4, v6} = $network;
     let info = [];
     if (!v4 && !v6) {
         info = ['网路可能中断', '请手动刷新以重新获取 IP'];
     } else {
-        if (v4?.primaryAddress) info.push(`设备IP：${v4?.primaryAddress}`);
+        if (v4?.primaryAddress) info.push(`${title} IP：${v4?.primaryAddress}`);
         if (v6?.primaryAddress) info.push(`IPv6地址：已分配`);
         if (v4?.primaryRouter && getSSID()) info.push(`路由器IP：${v4?.primaryRouter}`);
         if (v6?.primaryRouter && getSSID()) info.push(`IPv6地址：已分配`);
     }
     // info = info.join("\n");
-    return info.join("\n") + '\n';
+    return info.join("\n\n") + '\n\n';
 }
 
 function getFlagEmoji(countryCode) {
@@ -389,20 +390,10 @@ function getIcon() {
         });
     });
 
-    let getPanelIcon = new Promise((resolve, reject) => {
-        $httpClient.get(getIcon(), function (error, response, data) {
-            if (error) {
-                console.log(error);
-                reject(error);
-            } else {
-                resolve(data);
-            }
-        });
-    });
 
     await getLocalInfoPromise.then(info => {
         content.push(`${title} 公网IP：${info.ip}`);
-        content.push(`${title} ISP：${info.isp} - ${info.net}`);
+        content.push(`${title} 运营商：${info.isp} - ${info.net}`);
         content.push(`${title} 位置：${getFlagEmoji(info.short_name)} | ${info.country} - ${info.province} - ${info.city}`);
     }).catch(error => {
         content.push(`本机IP：获取失败`)
@@ -410,19 +401,14 @@ function getIcon() {
 
     await getIpInfoPromise.then(info => {
         content.push(`节点IP：${info.query}`)
-        content.push(`节点ISP：${info.isp}`)
+        content.push(`节点运营商：${info.isp}`)
         content.push(`节点位置：${getFlagEmoji(info.countryCode)} | ${info.country} - ${info.city}`)
     }).catch(error => {
         content.push(`节点IP：获取失败`)
     })
 
-    // await getPanelIcon.then(icon => {
-    //     panel_msg.icon = icon
-    // }).catch(error => {
-    //     console.log(error)
-    // })
 
     panel_msg.title = title
-    panel_msg.content = getIpInfo() + content.join("\n")
+    panel_msg.content = getIpInfo() + content.join("\n\n")
     $done(panel_msg)
 })()

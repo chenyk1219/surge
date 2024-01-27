@@ -2,8 +2,8 @@
 #!desc=详细的显示你当前的网络信息
 #!system=ios
 # @chenyk1219
-# 更新日期：2024.01.24
-# 版本：2.1
+# 更新日期：2024.01.28
+# 版本：2.2
 
 [Panel]
 IPInfoPanel=title="",content="",style=info,script-name=ip-info.js,update-interval=1
