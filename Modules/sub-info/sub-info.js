@@ -1,3 +1,11 @@
+function httpAPI(path = '', method = 'POST', body = null) {
+    return new Promise(resolve => {
+        $httpAPI(method, path, body, result => {
+            resolve(result)
+        })
+    })
+}
+
 !(async () => {
     let panel_msg = {
         title: '当前订阅信息',
@@ -6,28 +14,19 @@
         'icon-color': '#5A9AF9',
     }
     let content = [];
-    let test = new Promise((resolve, reject) => {
-        $httpAPI.get('/v1/policies', function (error, response, data) {
-            if (error) {
-                console.log(error);
-                reject(error);
-            } else {
-                resolve(JSON.parse(data));
-            }
-        });
-    });
-
-    await test.then((data) => {
-        const {proxies} = data
-        const reg = /Days|GB|Expire|Reset|date/i
+    const data = await httpAPI('/v1/policies', 'GET')
+    const proxies = data['proxies'] | []
+    const reg = /Days|GB|Expire|Reset|date/i
+    if (proxies.length) {
         proxies.forEach(item => {
             if (reg.test(item)) {
-                content.push(item.split('=')[0])
+                content.push(item)
             }
         })
-    }).catch((error) => {
-        console.log(error);
-    });
+    } else {
+        content.push('请配和本仓库的配置文件一起食用')
+    }
 
+    panel_msg.content = content.join('\n')
     $done(panel_msg)
 })()
