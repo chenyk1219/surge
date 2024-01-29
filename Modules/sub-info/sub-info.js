@@ -1,3 +1,11 @@
+function geArg() {
+  return Object.fromEntries(
+    $argument.split("&").map((i) => i.split("="))
+    .map(([k, v]) => [k, decodeURIComponent(v)])
+  );
+}
+
+
 function httpAPI(path = '', method = 'POST', body = null) {
     return new Promise(resolve => {
         $httpAPI(method, path, body, result => {
@@ -15,10 +23,10 @@ function httpAPI(path = '', method = 'POST', body = null) {
     }
     let content = [];
     const data = await httpAPI('/v1/policies', 'GET')
-    const proxies = data['proxies'] | []
-    const reg = /Days|GB|Expire|Reset|date/i
-    if (proxies.length) {
-        proxies.forEach(item => {
+    const arg = geArg()
+    const reg = arg.regex | /Days|GB|Expire|Reset|date|到期|剩余|流量/i
+    if (data['proxies']) {
+        data['proxies'].forEach(item => {
             if (reg.test(item)) {
                 content.push(item)
             }
