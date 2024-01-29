@@ -24,10 +24,10 @@ function httpAPI(path = '', method = 'POST', body = null) {
     let content = [];
     let reg = /Days|GB|Expire|Reset|date|到期|剩余|流量/i
     const data = await httpAPI('/v1/policies', 'GET')
-    if (typeof $argument !== "undefined" && $argument !== "") {
-        const arg = geArg("$argument")
-        reg = arg.regex
-    }
+    // if (typeof $argument !== "undefined" && $argument !== "") {
+    //     const arg = geArg("$argument")
+    //     reg = arg.regex
+    // }
 
     if (data['proxies']) {
         data['proxies'].forEach(item => {

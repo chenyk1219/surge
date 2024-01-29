@@ -3,7 +3,7 @@
 #!system=ios
 # @chenyk1219
 # 更新日期：2024.01.28
-# 版本：1.8
+# 版本：2.0
 # 参数:
 # regex=  订阅信息的正则表达式，用于匹配订阅信息，可自行修改
 
@@ -11,6 +11,6 @@
 SubInfoPanel=title="",content="",style=info,script-name=sub-info.js,update-interval=1
 
 [Script]
-sub-info.js=script-path=https://raw.githubusercontent.com/chenyk1219/surge/main/Modules/sub-info/sub-info.js,type=generic,timeout=30,argument=regex="\/Days|GB|Expire|Reset|date|到期|剩余|流量\/i"
+sub-info.js=script-path=https://raw.githubusercontent.com/chenyk1219/surge/main/Modules/sub-info/sub-info.js,type=generic,timeout=300,argument=regex="\/Days|GB|Expire|Reset|date|到期|剩余|流量\/i"
 
 [Host]
