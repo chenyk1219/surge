@@ -22,9 +22,13 @@ function httpAPI(path = '', method = 'POST', body = null) {
         'icon-color': '#5A9AF9',
     }
     let content = [];
+    let reg = /Days|GB|Expire|Reset|date|到期|剩余|流量/i
     const data = await httpAPI('/v1/policies', 'GET')
-    const arg = geArg()
-    const reg = arg.regex | /Days|GB|Expire|Reset|date|到期|剩余|流量/i
+    if (typeof $argument !== "undefined" && $argument !== "") {
+        const arg = geArg("$argument")
+        reg = arg.regex
+    }
+
     if (data['proxies']) {
         data['proxies'].forEach(item => {
             if (reg.test(item)) {
