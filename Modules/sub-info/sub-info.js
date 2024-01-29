@@ -18,8 +18,8 @@ function httpAPI(path = '', method = 'POST', body = null) {
     let panel_msg = {
         title: '当前订阅信息',
         content: '',
-        icon: 'wifi',
-        'icon-color': '#5A9AF9',
+        icon: 'network.badge.shield.half.filled',
+        'icon-color': '#607B56',
     }
     let content = [];
     let reg = /Days|GB|Expire|Reset|date|到期|剩余|流量/i
