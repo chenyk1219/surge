@@ -19,9 +19,10 @@
 
     await test.then((data) => {
         const {proxies} = data
+        const reg = /Days|GB|Expire|Reset|date/i
         proxies.forEach(item => {
-            if (item.indexOf('Days') !== -1) {
-                content.push(item)
+            if (reg.test(item)) {
+                content.push(item.split('=')[0])
             }
         })
     }).catch((error) => {
