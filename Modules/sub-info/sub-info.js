@@ -7,7 +7,7 @@
     }
     let content = [];
     let test = new Promise((resolve, reject) => {
-        $httpClient.get('/v1/policies', function (error, response, data) {
+        $httpAPI.get('/v1/policies', function (error, response, data) {
             if (error) {
                 console.log(error);
                 reject(error);
