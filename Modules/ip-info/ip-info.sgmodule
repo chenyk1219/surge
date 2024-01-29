@@ -3,7 +3,7 @@
 #!system=ios
 # @chenyk1219
 # 更新日期：2024.01.28
-# 版本：2.2
+# 版本：2.3
 
 [Panel]
 IPInfoPanel=title="",content="",style=info,script-name=ip-info.js,update-interval=1
