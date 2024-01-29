@@ -6,15 +6,13 @@ function geArg() {
 }
 
 function flagIconToHex(flagIcon) {
-    console.log(flagIcon)
-  // 提取国旗图标的字母部分
-  var regionIndicatorLetter = flagIcon.replace(/[\uD83C\uDDE6-\uD83C\uDDFF]/gu, '');
+    // 提取国旗图标的字母部分
+    var regionIndicatorLetter = flagIcon.replace(/[\uD83C\uDDE6-\uD83C\uDDFF]/gu, '');
 
-  // 获取字母的 Unicode 码点并转换为十六进制字符串
-  var countryCode = regionIndicatorLetter.codePointAt(0).toString(16);
+    // 获取字母的 Unicode 码点并转换为十六进制字符串
+    var countryCode = regionIndicatorLetter.codePointAt(0).toString(16);
 
-    console.log(countryCode)
-  return countryCode;
+    return countryCode;
 }
 
 
@@ -42,7 +40,7 @@ function httpAPI(path = '', method = 'POST', body = null) {
 
     let content = [];
     let length = data['proxies'].length | 0
-    for (let i=0; i < length; i++) {
+    for (let i = 0; i < length; i++) {
         const code = flagIconToHex(data['proxies'][i].split()[0])
         if (code !== "20") {
             content.push(data['proxies'][i])
