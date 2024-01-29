@@ -1,9 +1,9 @@
-(async () => {
+!(async () => {
     let panel_msg = {
         title: '当前订阅信息',
         content: '',
-        icon: getSSID() ? 'wifi' : 'simcard',
-        'icon-color': getSSID() ? '#5A9AF9' : '#8AB8DD',
+        icon: 'wifi',
+        'icon-color': '#5A9AF9',
     }
     let content = [];
     let test = new Promise((resolve, reject) => {
