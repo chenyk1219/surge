@@ -1,5 +1,6 @@
 /*
 * 部分方法引用脚本： https://raw.githubusercontent.com/mieqq/mieqq/master/sub_info_panel.js
+* 部分方法引用脚本：https://github.com/Rabbit-Spec/Surge/blob/Master/Module/Panel/Sub-info/Moore/Sub-info.js
 * 作者： @chenyk1219
 * */
 function geArg() {
@@ -63,8 +64,8 @@ function timeTransform(dateNow, dateTime) {
     let panel_msg = {
         title: '当前订阅&流量信息',
         content: '',
-        icon: 'network.badge.shield.half.filled',
-        'icon-color': '#607B56',
+        icon: 'airplane.circle',
+        'icon-color': '#5A9AF9',
     }
 
     const data = await httpAPI('/v1/policies', 'GET')
@@ -95,9 +96,9 @@ function timeTransform(dateNow, dateTime) {
     })
     let direct = trafficObj.DIRECT.in
     let proxy = traffic - direct
-    content.push(`本次运行${runTime}的总流量：${bytesToSize(traffic)}`)
-    content.push(`本次运行${runTime}的直连流量：${bytesToSize(direct)}`)
-    content.push(`本次运行${runTime}的代理流量：${bytesToSize(proxy)}`)
+    content.push(`本次运行用的总流量：${bytesToSize(traffic)}`)
+    content.push(`本次运行用的直连流量：${bytesToSize(direct)}`)
+    content.push(`本次运行用的代理流量：${bytesToSize(proxy)}`)
 
 
     panel_msg.content = content.join('\n')
