@@ -89,16 +89,26 @@ function timeTransform(dateNow, dateTime) {
     let runTime = timeTransform(currentTimeStamp, startTimeStamp)
     content.push(`Surge Pro® 运行时长：${runTime}`)
 
-    let trafficObj = runInfo.connector
-    let traffic = 0
-    Object.keys(trafficObj).forEach(function (key) {
-        traffic += trafficObj[key].in
+    let connectorObj = runInfo.connector
+    let connector = 0
+    Object.keys(connectorObj).forEach(function (key) {
+        connector += connectorObj[key].in
     })
-    let direct = trafficObj.DIRECT.in
-    let proxy = traffic - direct
-    content.push(`本次运行用的总流量：${bytesToSize(traffic)}`)
+    let direct = connectorObj.DIRECT.in
+
+
+    let interfaceObj = runInfo.interface
+    let interfaceIn = 0
+    Object.keys(interfaceObj).forEach(function (key) {
+        interfaceIn += interfaceObj[key].in
+    })
+
+    let proxy = interfaceIn - direct
+    content.push(`本次运行用的总流量：${bytesToSize(interfaceIn)}`)
     content.push(`本次运行用的直连流量：${bytesToSize(direct)}`)
     content.push(`本次运行用的代理流量：${bytesToSize(proxy)}`)
+
+
 
 
     panel_msg.content = content.join('\n')
