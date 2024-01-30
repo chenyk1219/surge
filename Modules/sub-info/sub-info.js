@@ -75,7 +75,7 @@ function timeTransform(dateNow, dateTime) {
     let length = data['proxies'].length | 0
     for (let i = 0; i < length; i++) {
         const code = flagIconToHex(data['proxies'][i].split()[0])
-        if (code !== "20" && /:|：/.test(data['proxies'][i])) {
+        if (code !== "20" && /:|：|Days|GB|Expire|Reset|date|到期|剩余|流量/.test(data['proxies'][i])) {
             content.push(data['proxies'][i])
         }
     }
