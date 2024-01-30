@@ -108,11 +108,11 @@ function timeTransform(dateNow, dateTime) {
     content.push(`本次运行用的直连流量：${bytesToSize(direct)}`)
     content.push(`本次运行用的代理流量：${bytesToSize(proxy)}`)
 
-    if (direct > 10 * 1024 * 1024) {
+    if (direct > 10 * 1024 * 1024 * 1024) {
         $notification.post("流量使用警告", '', `本次运行用的直连流量已达：${bytesToSize(direct)}`)
     }
 
-    if (proxy > 10 * 1024 * 1024) {
+    if (proxy > 10 * 1024 * 1024 * 1024) {
         $notification.post("流量使用警告", '', `本次运行用的代理流量已达：${bytesToSize(proxy)}`)
     }
 
