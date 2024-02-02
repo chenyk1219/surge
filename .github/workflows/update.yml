@@ -33,16 +33,16 @@ jobs:
           git checkout release
   
           git checkout --orphan release-orphan
-          # git rm -rf ChinaIP.list
-          # git rm -rf ChinaDomain.list
   
           /bin/cp -rf dist/ChinaIP.list ./
           /bin/cp -rf dist/ChinaDomain.list ./
           /bin/cp -rf dist/RealIP.list ./
+          /bin/cp -rf dist/UnBreak.list ./
   
           git add ChinaIP.list
           git add RealIP.list
           git add ChinaDomain.list
+          git add UnBreak.list
           git commit -am "Updated at $(date)"
   
           git branch -D release
