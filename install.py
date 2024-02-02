@@ -77,7 +77,7 @@ def get_ad_module():
 #!system=ios\n\
 # @chenyk1219\n\
 # 更新日期：{version}\n\
-# 版本：{version}\n"
+# 版本：{version}\n\n\n"
     ad_list = requests.request('GET', ad_module_url).text.split('\n')
     for ad in ad_list:
         if ad and not ad.startswith('#'):
@@ -89,6 +89,7 @@ def get_ad_module():
         for ad in ad_url_rewrite_set:
             ad = ad + '\n'
             file.write(ad.encode())
+        file.write(b'\n\n')
         file.write(b'[MITM]\n')
         for hostname in ad_hostname_set:
             print(hostname)
