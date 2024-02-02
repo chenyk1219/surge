@@ -87,7 +87,7 @@ def get_ad_module():
         file.write(description.encode())
         file.write(b'[URL Rewrite]\n')
         for ad in ad_url_rewrite_set:
-            ad = ad + '\n'
+            ad = ad.split(' ')[0] + ' - reject\n'
             file.write(ad.encode())
         file.write(b'\n\n')
         file.write(b'[MITM]\n')
