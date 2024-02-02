@@ -1,5 +1,6 @@
 #!/bin/env python3
 # -*- coding: utf-8 -*-
+import datetime
 import requests
 import os
 
@@ -65,6 +66,37 @@ def unbreak():
             file.write(unbreak_url.encode())
 
 
+def get_ad_module():
+    ad_module_url = 'https://raw.githubusercontent.com/fmz200/wool_scripts/main/QuantumultX/rewrite/chongxie.txt'
+    filename = os.path.join('dist', 'ad.sgmodule')
+    ad_url_rewrite_set = set()
+    ad_hostname_set = set()
+    version = datetime.datetime.now().strftime("%Y.%m.%d")
+    description = f"#!name=广告拦截合集-重写\n\
+#!desc= 100%套用：https://raw.githubusercontent.com/fmz200/wool_scripts/main/QuantumultX/rewrite/chongxie.txt，将qx的规则转写成surge的模块\n\
+#!system=ios\n\
+# @chenyk1219\n\
+# 更新日期：{version}\n\
+# 版本：{version}\n"
+    ad_list = requests.request('GET', ad_module_url).text.split('\n')
+    for ad in ad_list:
+        if ad and not ad.startswith('#'):
+            ad_hostname_set.add(ad) if ad.startswith('hostname') else ad_url_rewrite_set.add(ad)
+
+    with open(filename, 'wb') as file:
+        file.write(description.encode())
+        file.write(b'[URL Rewrite]\n')
+        for ad in ad_url_rewrite_set:
+            ad = ad + '\n'
+            file.write(ad.encode())
+        file.write(b'[MITM]\n')
+        for hostname in ad_hostname_set:
+            print(hostname)
+            hostname = hostname.split('=')[1]
+            file.write('hostname = %APPEND% '.encode())
+            file.write(hostname.encode())
+
+
 if __name__ == '__main__':
     if not os.path.exists("dist"):
         os.makedirs("dist")
@@ -72,3 +104,4 @@ if __name__ == '__main__':
     get_china_ip()
     get_china_domain()
     unbreak()
+    get_ad_module()
