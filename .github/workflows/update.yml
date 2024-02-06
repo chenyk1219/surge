@@ -39,12 +39,16 @@ jobs:
           /bin/cp -rf dist/RealIP.list ./
           /bin/cp -rf dist/UnBreak.list ./
           /bin/cp -rf dist/ad.sgmodule ./
+          /bin/cp -rf dist/adg.list ./
+          /bin/cp -rf dist/Unblocking.list ./
   
           git add ChinaIP.list
           git add RealIP.list
           git add ChinaDomain.list
           git add UnBreak.list
           git add ad.sgmodule
+          git add adg.list
+          git add Unblocking.list
           git commit -am "Updated at $(date)"
   
           git branch -D release

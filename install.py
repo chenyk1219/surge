@@ -98,6 +98,30 @@ def get_ad_module():
             file.write(hostname.encode())
 
 
+def adg():
+    adg_url = 'https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt'
+    adg_list = requests.request('GET', adg_url).text.split('\n')
+    ad_filename = os.path.join('dist', 'adg.list')
+    unblocking_filename = os.path.join('dist', 'Unblocking.list')
+    ad_set = set()
+    unblocking_set = set()
+    for adg in adg_list:
+        if adg and adg.startswith('||'):
+            ad_set.add('DOMAIN-SUFFIX ' + adg.strip('||^'))
+        if adg and adg.startswith('@@||'):
+            unblocking_set.add('DOMAIN-SUFFIX ' + adg.strip('@@||^|'))
+        if adg and adg.startswith('|') and not adg.startswith('||'):
+            ad_set.add('DOMAIN ' + adg.strip('|^'))
+    with open(ad_filename, 'wb') as file:
+        for ad in ad_set:
+            file.write(ad.encode())
+            file.write(b'\n')
+    with open(unblocking_filename, 'wb') as file:
+        for unblocking in unblocking_set:
+            file.write(unblocking.encode())
+            file.write(b'\n')
+
+
 if __name__ == '__main__':
     if not os.path.exists("dist"):
         os.makedirs("dist")
@@ -106,3 +130,4 @@ if __name__ == '__main__':
     get_china_domain()
     unbreak()
     get_ad_module()
+    adg()
