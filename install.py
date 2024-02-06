@@ -107,11 +107,11 @@ def adg():
     unblocking_set = set()
     for adg in adg_list:
         if adg and adg.startswith('||'):
-            ad_set.add('DOMAIN-SUFFIX ' + adg.strip('||^'))
+            ad_set.add('DOMAIN-SUFFIX,' + adg.strip('||^'))
         if adg and adg.startswith('@@||'):
-            unblocking_set.add('DOMAIN-SUFFIX ' + adg.strip('@@||^|'))
+            unblocking_set.add('DOMAIN-SUFFIX,' + adg.strip('@@||^|'))
         if adg and adg.startswith('|') and not adg.startswith('||'):
-            ad_set.add('DOMAIN ' + adg.strip('|^'))
+            ad_set.add('DOMAIN,' + adg.strip('|^'))
     with open(ad_filename, 'wb') as file:
         for ad in ad_set:
             file.write(ad.encode())
