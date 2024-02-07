@@ -121,10 +121,10 @@ def adg():
         for unblocking in unblocking_set:
             file.write(unblocking.encode())
             file.write(b'\n')
-        for unblocking in unblocking_extend:
-            ubstr = 'DOMAIN-SUFFIX,' + unblocking
-            file.write(ubstr.encode())
-            file.write(b'\n')
+        # for unblocking in unblocking_extend:
+        #     ubstr = 'DOMAIN-SUFFIX,' + unblocking
+        #     file.write(ubstr.encode())
+        #     file.write(b'\n')
 
 
 if __name__ == '__main__':
