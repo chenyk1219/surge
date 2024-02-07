@@ -11,6 +11,15 @@
 
 ## 更新
 
+- 2024-2-7 更新
+
+bm7的广告规则太多了，部分拉取失败，所以将广告屏蔽规则换成 [Adguard](https://github.com/AdguardTeam/AdGuardSDNSFilter)
+
+```shell
+https://raw.githubusercontent.com/chenyk1219/surge/release/Unblocking.list
+https://raw.githubusercontent.com/chenyk1219/surge/release/adg.list
+```
+
 - 2024-2-2 更新
 
 规则顺序修正，新增DIRECT规则
