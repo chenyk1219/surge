@@ -134,5 +134,5 @@ if __name__ == '__main__':
     get_china_ip()
     get_china_domain()
     unbreak()
-    get_ad_module()
+    # get_ad_module()
     adg()
