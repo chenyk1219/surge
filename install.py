@@ -105,7 +105,6 @@ def adg():
     unblocking_filename = os.path.join('dist', 'Unblocking.list')
     ad_set = set()
     unblocking_set = set()
-    unblocking_extend = ['ib.snssdk.com']
     for adg in adg_list:
         if adg and adg.startswith('||'):
             ad_set.add('DOMAIN-SUFFIX,' + adg.strip('||^'))
@@ -121,10 +120,6 @@ def adg():
         for unblocking in unblocking_set:
             file.write(unblocking.encode())
             file.write(b'\n')
-        # for unblocking in unblocking_extend:
-        #     ubstr = 'DOMAIN-SUFFIX,' + unblocking
-        #     file.write(ubstr.encode())
-        #     file.write(b'\n')
 
 
 if __name__ == '__main__':
