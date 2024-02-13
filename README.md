@@ -2,7 +2,7 @@
 
 <p>
 <a href="https://www.inextops.com" target="_blank"><img  alt="home" src="https://img.shields.io/badge/www.inextops.com-%23555555?style=for-the-badge&logo=googlechrome&link=www.inextops.com"> </a>
-<a href="https://t.me/inextopschannel" target="_blank"><img  alt="home" src="https://img.shields.io/badge/inextopschannel-%23555555?style=for-the-badge&logo=telegram&link=https://t.me/inextopschannel"> </a>
+<a href="https://t.me/iXiaoChengZi" target="_blank"><img  alt="home" src="https://img.shields.io/badge/iXiaoChengZi-%23555555?style=for-the-badge&logo=telegram&link=https://t.me/iXiaoChengZi"> </a>
 </p>
 
 ## Surge 最新免转换懒人配置
