@@ -24,7 +24,7 @@ text = (
 ) + main["commit"]["message"]
 
 url = f"https://api.telegram.org/bot{token}/sendMessage"
-for cid in ["-1002083747718"]:
+for cid in ["-1002045956568"]:
     push_content = {
         "chat_id": cid,
         "disable_web_page_preview": "True",
