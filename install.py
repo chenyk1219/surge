@@ -125,6 +125,7 @@ def adg():
 if __name__ == '__main__':
     if not os.path.exists("dist"):
         os.makedirs("dist")
+
     get_china_ip()
     get_china_domain()
     unbreak()
