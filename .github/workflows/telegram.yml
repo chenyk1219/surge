@@ -34,6 +34,6 @@ jobs:
 
     # 更新数据
     - name: Update Telegraph
-      # if: ${{ github.event_name != 'pull_request' && startsWith(github.ref, 'refs/tags/') }}
+      if: ${{ github.event_name != 'pull_request' && startsWith(github.ref, 'refs/tags/') }}
       run: |
         python telegram_update.py ${{ secrets.TELEGRAPH_TOKEN }}
