@@ -1,0 +1,16 @@
+#!name=广告拦截-腾讯视频
+#!desc= 适用于腾讯视频的广告拦截
+#!system=ios
+# @chenyk1219
+# 更新日期：2024.02.20
+# 版本：2024.02.20
+
+[URL Rewrite]
+^http:\/\/[\d\.:]*\/?(defaultts\.tc|vmind\.qqvideo\.tc|finderpdd\.video)\.qq\.com\/\w+ - reject
+^http:\/\/apd-vlive\.apdcdn\.tc\.qq\.com\/vmind\.qqvideo\.tc\.qq\.com\/\w+ - reject
+^http:\/\/apd-\w+\.v\.smtcdns\.com\/(defaultts|omts|vmind\.qqvideo)\.tc\.qq\.com\/\w+ - reject
+^https?:\/\/vv\.video\.qq\.com\/(diff|get)vmind - reject
+^https?:\/\/vv\.video\.qq\.com\/getvinfo - reject
+
+[MITM]
+hostname = %APPEND% vv.video.qq.com
